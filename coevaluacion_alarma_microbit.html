@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coevaluación – Alarma con micro:bit</title>
+<style>
+:root{--bg:#eef3f9;--card:#fff;--text:#0d2742;--muted:#48627a;--accent:#123f73;--accent2:#1d5b96;--ok:#1f8f5f;--warn:#d28b18;--no:#c74b4b;--border:#dbe4ee}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#e8f0f8,#f7faff);color:var(--text)}
+.wrap{max-width:900px;margin:0 auto;padding:28px 18px 50px}
+.hero{background:linear-gradient(135deg,#0d3158,#174f86);color:#fff;border-radius:22px;padding:28px;box-shadow:0 12px 30px rgba(35,67,108,.16);margin-bottom:20px}
+.hero h1{margin:0 0 10px;font-size:clamp(30px,5vw,44px);font-weight:900;letter-spacing:.2px}
+.hero p{margin:0;font-size:18px;line-height:1.5;opacity:.98;font-weight:600}
+.steps{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.step{background:rgba(255,255,255,.16);padding:8px 12px;border-radius:999px;font-size:14px;font-weight:700}
+form{display:grid;gap:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;box-shadow:0 5px 15px rgba(27,59,92,.06)}
+.card h2{margin:0 0 10px;font-size:22px;font-weight:900;color:#123f73}
+.hint{color:var(--muted);font-size:15px;margin:0 0 14px;font-weight:600}
+input[type=text],textarea{width:100%;border:1px solid #cfd9e4;border-radius:12px;padding:13px 14px;font-size:16px;outline:none;background:#fbfdff}
+input[type=text]:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(45,103,177,.12)}
+textarea{min-height:105px;resize:vertical}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px}
+.choice input{display:none}
+.choice label{display:block;border:2px solid var(--border);border-radius:14px;padding:15px 12px;text-align:center;cursor:pointer;font-weight:800;font-size:16px;background:#fff;transition:.18s}
+.choice label:hover{transform:translateY(-1px)}
+.choice.yes input:checked+label{border-color:var(--ok);background:#eef9f4;color:#146745}
+.choice.adjust input:checked+label{border-color:var(--warn);background:#fff8e9;color:#8b5c0d}
+.choice.no input:checked+label{border-color:var(--no);background:#fff0f0;color:#8c2f2f}
+.submit{border:0;border-radius:14px;background:linear-gradient(135deg,#0d3158,#174f86);color:#fff;font-size:17px;font-weight:800;padding:15px 22px;cursor:pointer;box-shadow:0 8px 20px rgba(45,103,177,.22)}
+.success{display:none;margin-top:16px;background:#edf9f3;border:1px solid #bfe6d1;color:#176844;border-radius:16px;padding:18px;font-weight:700;text-align:center}
+.footer{text-align:center;color:#38536d;font-size:14px;font-weight:700;margin-top:22px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <h1>🚨 Coevaluación – Alarma con micro:bit</h1>
+    <p>Prueben el programa de otro equipo y dejen una devolución breve que les ayude a mejorarlo.</p>
+    <div class="steps">
+      <div class="step">1. Probar</div><div class="step">2. Revisar</div><div class="step">3. Sugerir</div><div class="step">4. Enviar</div>
+    </div>
+  </section>
+
+  <form id="evalForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdd4SvFk6-bBtBd_GUWMhTYBZ4N_qAstvl1d4s8nRPfVZY_mQ/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+    <section class="card">
+      <h2>👥 ¿Quiénes evalúan?</h2>
+      <p class="hint">Escriban nombre y apellido de los integrantes del equipo que realiza la devolución.</p>
+      <input type="text" name="entry.408746075" placeholder="Ej.: Ana Pérez y Mateo Silva" required>
+    </section>
+
+    <section class="card">
+      <h2>🔎 ¿A qué equipo evalúan?</h2>
+      <p class="hint">Escriban nombre y apellido de los integrantes del equipo cuyo programa están probando.</p>
+      <input type="text" name="entry.2125038788" placeholder="Ej.: Sofía Rodríguez y Lucas Gómez" required>
+    </section>
+
+    <section class="card">
+      <h2>1. ¿El programa detecta el movimiento?</h2>
+      <div class="choices">
+        <div class="choice yes"><input id="mov-si" type="radio" name="entry.1750721178" value="Sí" required><label for="mov-si">✅ Sí</label></div>
+        <div class="choice adjust"><input id="mov-aj" type="radio" name="entry.1750721178" value="Necesita ajustes"><label for="mov-aj">🔧 Necesita ajustes</label></div>
+        <div class="choice no"><input id="mov-no" type="radio" name="entry.1750721178" value="No"><label for="mov-no">❌ No</label></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>2. ¿La micro:bit produce una respuesta cuando detecta el movimiento?</h2>
+      <div class="choices">
+        <div class="choice yes"><input id="resp-si" type="radio" name="entry.1578810491" value="Si" required><label for="resp-si">✅ Sí</label></div>
+        <div class="choice adjust"><input id="resp-aj" type="radio" name="entry.1578810491" value="Necesita ajustes"><label for="resp-aj">🔧 Necesita ajustes</label></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>3. ¿Se entiende cómo funciona la solución del equipo?</h2>
+      <div class="choices">
+        <div class="choice yes"><input id="sol-si" type="radio" name="entry.1261068724" value="Sí" required><label for="sol-si">✅ Sí</label></div>
+        <div class="choice adjust"><input id="sol-aj" type="radio" name="entry.1261068724" value="Necesita ajustes"><label for="sol-aj">🔧 Necesita ajustes</label></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>💡 Una mejora o sugerencia</h2>
+      <p class="hint">Escriban una idea breve que pueda ayudar al otro equipo a cumplir mejor la consigna.</p>
+      <textarea name="entry.1885831257" placeholder="Ej.: Podrían revisar el bloque que detecta el movimiento..." required></textarea>
+    </section>
+
+    <button class="submit" type="submit">Enviar devolución</button>
+  </form>
+
+  <div id="success" class="success">✅ ¡Devolución enviada! Las respuestas quedan visibles en esta pantalla para que puedan revisarlas antes de volver con su equipo.</div>
+  <div class="footer">Ciencias de la Computación · 7.º 2 · Coevaluación entre pares</div>
+</div>
+
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+<script>
+let submitted=false;
+const iframe=document.getElementById('hidden_iframe');
+const form=document.getElementById('evalForm');
+const success=document.getElementById('success');
+iframe.onload=function(){
+  if(submitted){
+    success.style.display='block';
+    submitted=false;
+    success.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+};
+</script>
+</body>
+</html>

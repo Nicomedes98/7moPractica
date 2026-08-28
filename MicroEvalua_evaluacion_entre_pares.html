@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Micro:Evalúa · Linterna automática con sensor de luz</title>
+  <style>
+    :root{--ink:#17213d;--muted:#667085;--purple:#6d43e5;--cyan:#12cfe4;--lime:#b7ef5c;--line:#e6e8f0}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:#f5f6fb;font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif}
+    nav{height:74px;padding:0 clamp(20px,5vw,70px);display:flex;align-items:center;justify-content:space-between;color:#fff;background:#1c124a}.brand{display:flex;align-items:center;gap:9px;font-size:1.2rem}.chip{width:40px;height:40px;display:grid;place-items:center;border-radius:13px;color:#21144e;background:linear-gradient(135deg,var(--cyan),var(--lime));font-size:1.4rem}.prototype{padding:8px 13px;border:1px solid #ffffff38;border-radius:99px;color:#e9e5ff;background:#ffffff14;font-size:.78rem}
+    .hero{min-height:410px;padding:62px clamp(22px,7vw,105px) 76px;display:grid;grid-template-columns:1.5fr .7fr;gap:55px;align-items:center;color:#fff;background:radial-gradient(circle at 83% 25%,#12cfe43b,transparent 25%),linear-gradient(130deg,#21144f,#5c35cd)}.eyebrow{color:var(--cyan);font-size:.75rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.hero h1{margin:15px 0 17px;font-size:clamp(2.5rem,5vw,4.7rem);line-height:.98;letter-spacing:-.055em}.hero h1 em{color:var(--lime);font-style:normal}.hero>div>p{max-width:700px;color:#ded8f8;font-size:1.03rem;line-height:1.7}.steps{margin-top:25px;display:flex;align-items:center;gap:11px;font-size:.85rem}.steps span{display:flex;align-items:center;gap:7px}.steps b{width:25px;height:25px;display:grid;place-items:center;border-radius:50%;color:#21144e;background:var(--cyan)}.hero aside{padding:22px;display:flex;gap:13px;border:1px solid #ffffff2b;border-radius:22px;background:#ffffff16;backdrop-filter:blur(12px);box-shadow:0 20px 45px #07031a33}.hero aside p{margin:7px 0 0;color:#ddd7f8;font-size:.87rem;line-height:1.55}
+    .wrap{padding:0 20px 76px}form{max-width:1080px;margin:-35px auto 0;padding:clamp(24px,4vw,48px);position:relative;border:1px solid #503b971c;border-radius:29px;background:#fff;box-shadow:0 28px 65px #271c571f}.section-title{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}.tag{display:block;margin-bottom:7px;color:var(--purple);font-size:.69rem;font-weight:900;letter-spacing:.13em;text-transform:uppercase}h2{margin:0;font-size:clamp(1.5rem,3vw,2.15rem);letter-spacing:-.035em}.teams{margin:26px 0 47px;display:grid;grid-template-columns:1fr 1fr;gap:17px}label>span{display:block;margin-bottom:8px;color:#3d465d;font-size:.81rem;font-weight:800}input[type=text],textarea{width:100%;border:1px solid #dfe2ec;border-radius:14px;background:#fafbfe;outline:none;transition:.2s}input[type=text]{height:51px;padding:0 15px}textarea{min-height:112px;padding:14px;resize:vertical;line-height:1.5}input:focus,textarea:focus{border-color:#8d71ee;box-shadow:0 0 0 3px #6d43e51c}
+    .criteria-head{display:flex;justify-content:space-between;gap:20px}.criteria-head p{margin:7px 0 0;color:var(--muted)}.counter{min-width:75px;padding:9px 13px;text-align:center;border-radius:14px;color:#fff;background:var(--purple)}.counter b,.counter small{display:block}.counter small{font-size:.65rem;opacity:.8}.bar{height:7px;margin:22px 0 17px;overflow:hidden;border-radius:99px;background:#ebeef5}.bar span{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--purple),var(--cyan));transition:.3s}.criteria{display:grid;gap:11px}.criterion{padding:16px 18px;display:grid;grid-template-columns:1.2fr 1fr;align-items:center;gap:24px;border:1px solid var(--line);border-radius:17px}.criterion:hover{border-color:#cfc4f8;box-shadow:0 9px 22px #3d2c7d12}.criterion-title{font-size:.88rem;font-weight:800;line-height:1.45}.criterion-title b{width:34px;height:34px;margin-right:10px;display:inline-grid;place-items:center;border-radius:10px;color:var(--purple);background:#f0ecff;font-size:.71rem}.options{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.option{min-height:41px;margin:0;padding:8px;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;border:1px solid;border-radius:11px;font-size:.7rem;font-weight:900}.option input{accent-color:var(--purple)}.achieved{color:#217d61;border-color:#b6e8d8;background:#effbf7}.progress{color:#93620d;border-color:#f3d795;background:#fff9e9}.support{color:#b14357;border-color:#f2bcc6;background:#fff1f4}
+    .feedback{margin-top:45px;padding:clamp(21px,3vw,32px);border-radius:22px;background:linear-gradient(135deg,#f4f1ff,#eefcff)}.feedback-grid{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:17px}.green{color:#217d61}.orange{color:#a66d0b}.error{display:none;padding:11px 14px;border-radius:11px;color:#a22c41;background:#fff0f3;font-size:.83rem;font-weight:800}.send-row{margin-top:26px;display:flex;align-items:center;justify-content:space-between;gap:23px}.send-row p{max-width:600px;margin:0;color:var(--muted);font-size:.79rem;line-height:1.5}button{min-height:48px;padding:0 22px;border:0;border-radius:14px;color:#fff;background:linear-gradient(135deg,var(--purple),#5230c4);box-shadow:0 12px 25px #5230c43d;font-weight:800;cursor:pointer}button:hover{filter:brightness(1.1)}
+    .why{padding:76px clamp(22px,7vw,105px) 88px;color:#fff;background:#19152c}.why h2{margin-top:11px;font-size:clamp(2rem,4vw,3.2rem)}.why>.intro{max-width:750px;color:#bcb7cd;line-height:1.7}.benefits{margin-top:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:17px}.benefits article{position:relative;min-height:245px;padding:26px;border:1px solid #ffffff17;border-radius:23px;background:#242038}.icon{width:47px;height:47px;display:grid;place-items:center;border-radius:14px;color:#171229;font-size:1.3rem}.cyan{background:var(--cyan)}.violet{background:#a58bf4}.lime{background:var(--lime)}.benefits small{position:absolute;top:26px;right:26px;color:#ffffff35;font-weight:900}.benefits h3{margin:25px 0 9px}.benefits p{margin:0;color:#bcb7cd;font-size:.86rem;line-height:1.65}.teacher{margin-top:18px;padding:20px 23px;border:1px solid #b7ef5c40;border-radius:18px;color:#dcd8e8;background:#b7ef5c12;line-height:1.6}.teacher b{color:#fff}
+    .success{display:none;min-height:100vh;padding:30px;place-items:center;text-align:center;color:#fff;background:radial-gradient(circle at 20% 10%,#12cfe438,transparent 24%),linear-gradient(135deg,#21144f,#5c35cd)}.success-card{width:min(620px,100%);padding:clamp(34px,7vw,62px);border:1px solid #ffffff2b;border-radius:31px;background:#ffffff18;backdrop-filter:blur(16px);box-shadow:0 30px 80px #0903254d}.success-icon{width:76px;height:76px;margin:0 auto 23px;display:grid;place-items:center;border-radius:23px;color:#21144f;background:var(--lime);font-size:2.3rem}.success h1{margin:12px 0 14px;font-size:clamp(2.1rem,6vw,3.6rem);line-height:1;letter-spacing:-.05em}.success p{color:#dfdaf4;line-height:1.7}.note{margin:27px 0;padding:16px;text-align:left;border-radius:16px;background:#ffffff18}.note span{display:block;margin-top:4px;color:#c9c3df;font-size:.78rem}
+    footer{padding:27px clamp(22px,7vw,105px);display:flex;align-items:center;justify-content:space-between;color:#d9d4e7;background:#110e20}footer p{color:#8f899f;font-size:.77rem}
+    @media(max-width:830px){.hero{grid-template-columns:1fr;gap:27px}.criterion{grid-template-columns:1fr}.benefits{grid-template-columns:1fr}.benefits article{min-height:0}}@media(max-width:600px){.prototype{display:none}.teams,.feedback-grid{grid-template-columns:1fr}.options{grid-template-columns:1fr}.option{justify-content:flex-start}.send-row,footer{align-items:stretch;flex-direction:column}button{width:100%}}
+  </style>
+</head>
+<body>
+  <main id="app">
+    <nav><div class="brand"><span class="chip">▦</span><b>Micro:</b>Evalúa</div><div class="prototype">✦ Ejemplo interactivo</div></nav>
+    <header class="hero">
+      <div><span class="eyebrow">Evaluación formativa entre pares</span><h1>Linterna automática<br><em>con sensor de luz.</em></h1><p>Cada equipo prueba el programa de otro grupo y realiza una devolución clara utilizando criterios conocidos.</p><div class="steps"><span><b>1</b> Probar</span>→<span><b>2</b> Valorar</span>→<span><b>3</b> Mejorar</span></div></div>
+      <aside><span>💡</span><div><strong>Antes de comenzar</strong><p>Revisen el programa con respeto. La devolución debe ayudar al otro equipo a avanzar.</p></div></aside>
+    </header>
+    <section class="wrap">
+      <form id="evaluationForm">
+        <div class="section-title"><div><span class="tag">01 · Identificación</span><h2>¿Quién evalúa a quién?</h2></div><span>👥</span></div>
+        <div class="teams"><label><span>Nombre y apellido de quienes evalúan</span><input type="text" name="evaluadores" autocomplete="off" placeholder="Escriban los nombres y apellidos"></label><label><span>Nombre y apellido de quienes son evaluados</span><input type="text" name="evaluados" autocomplete="off" placeholder="Escriban los nombres y apellidos"></label></div>
+        <div class="criteria-head"><div><span class="tag">02 · Escala de valoración</span><h2>¿Qué observamos en el programa?</h2><p>Seleccionen un nivel en cada criterio después de probar el proyecto.</p></div><div class="counter"><b id="count">0/5</b><small>criterios</small></div></div>
+        <div class="bar"><span id="progressBar"></span></div>
+        <div class="criteria" id="criteria"></div>
+        <div class="feedback">
+          <div class="section-title"><div><span class="tag">03 · Retroalimentación</span><h2>Una devolución que sirva</h2></div><span>💬</span></div>
+          <div class="feedback-grid" style="grid-template-columns:1fr"><label><span class="orange">💡 ¿Qué recomendación le darían al equipo?</span><textarea name="recomendacion" placeholder="Escriban una sugerencia concreta y respetuosa para seguir mejorando."></textarea></label></div>
+        </div>
+        <p class="error" id="error">Completen los nombres, los cinco criterios y la recomendación final.</p>
+        <div class="send-row"><p><b>Importante:</b> no evaluamos a las personas; valoramos una producción para ayudar a mejorarla.</p><button type="submit">➤ Enviar evaluación</button></div>
+      </form>
+    </section>
+    <footer><div class="brand"><span class="chip">▦</span><b>Micro:</b>Evalúa</div><p>Prototipo educativo · Ciencias de la Computación · 7.º EBI</p></footer>
+  </main>
+  <section class="success" id="success">
+    <div class="success-card"><div class="success-icon">✓</div><span class="eyebrow">¡Ejemplo completado!</span><h1>Así finalizaría la evaluación</h1><p>Esta página es una demostración del instrumento y no guarda ni envía las respuestas ingresadas.</p><div class="note"><b>▤ Evaluación entre pares</b><span>El equipo dejó una recomendación concreta para ayudar a sus compañeros a seguir mejorando.</span></div><button type="button" id="reset">↻ Realizar otra demostración</button></div>
+  </section>
+  <script>
+    const criteria = [
+      "Utiliza el sensor de luz como entrada del programa.",
+      "Utiliza estructuras condicionales para tomar decisiones.",
+      "Define distintos niveles de luz sin dejar valores sin considerar.",
+      "La micro:bit muestra una respuesta diferente según el nivel de luz detectado.",
+      "El programa funciona correctamente en el simulador."
+    ];
+    const levels = [["Logrado","Logrado","achieved"],["En proceso","En proceso","progress"],["Requiere ayuda","Requiere ayuda","support"]];
+    const container = document.getElementById("criteria");
+    criteria.forEach((text,index)=>{
+      const row=document.createElement("div"); row.className="criterion";
+      row.innerHTML='<div class="criterion-title"><b>'+String(index+1).padStart(2,"0")+'</b>'+text+'</div><div class="options">'+levels.map(level=>'<label class="option '+level[2]+'"><input type="radio" name="criterio'+index+'" data-criterion="'+index+'" value="'+level[0]+'"> '+level[1]+'</label>').join("")+'</div>';
+      container.appendChild(row);
+    });
+    const form=document.getElementById("evaluationForm"), count=document.getElementById("count"), bar=document.getElementById("progressBar"), error=document.getElementById("error");
+    function update(){let done=0;criteria.forEach((_,i)=>{if(form.querySelector('input[data-criterion="'+i+'"]:checked'))done++});count.textContent=done+"/5";bar.style.width=(done/5*100)+"%";return done}
+    form.addEventListener("change",update);
+    form.addEventListener("submit",e=>{e.preventDefault();const done=update();const evaluator=form.evaluadores.value.trim(),evaluated=form.evaluados.value.trim(),recommendation=form.recomendacion.value.trim();if(!evaluator||!evaluated||done<5||!recommendation){error.style.display="block";error.scrollIntoView({behavior:"smooth",block:"center"});return}error.style.display="none";document.getElementById("app").style.display="none";document.getElementById("success").style.display="grid";scrollTo(0,0)});
+    document.getElementById("reset").addEventListener("click",()=>{form.reset();update();document.getElementById("success").style.display="none";document.getElementById("app").style.display="block";scrollTo(0,0)});
+  </script>
+</body>
+</html>

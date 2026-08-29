@@ -178,6 +178,13 @@ textarea{min-height:105px;resize:vertical}
   border-left-color:#f59e0b;
   border-color:#f6d675;
 }
+button[type="submit"]:disabled{
+  cursor:not-allowed;
+  opacity:.8;
+  background:linear-gradient(135deg,#16815c,#39b97f);
+  transform:none;
+  box-shadow:none;
+}
 </style>
 </head>
 <body>
@@ -264,6 +271,22 @@ iframe.onload=function(){
     success.scrollIntoView({behavior:'smooth', block:'center'});
   }
 };
+  // Evita enviar varias veces la misma evaluación
+(() => {
+  const evaluationForm = document.getElementById("evalForm");
+  const sendButton = evaluationForm.querySelector('button[type="submit"]');
+
+  evaluationForm.addEventListener("submit", () => {
+    if (sendButton.disabled) return;
+
+    sendButton.disabled = true;
+    sendButton.textContent = "⏳ Enviando respuesta...";
+
+    setTimeout(() => {
+      sendButton.textContent = "✅ Respuesta enviada";
+    }, 1500);
+  });
+})();
 </script>
 </body>
 </html>

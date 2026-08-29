@@ -102,6 +102,82 @@ textarea{min-height:105px;resize:vertical}
     height:130px;
   }
 }
+  /* Fondo y decoración de las preguntas */
+.card{
+  position:relative;
+  overflow:hidden;
+  border:2px solid #ddd6fe;
+  border-left:9px solid #7c3aed;
+  background:linear-gradient(135deg,#ffffff 20%,#f5f3ff 100%);
+  box-shadow:0 10px 25px rgba(64,50,130,.13);
+}
+
+.card::after{
+  content:"";
+  position:absolute;
+  top:-35px;
+  right:-35px;
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#22d3ee,#8b5cf6);
+  opacity:.13;
+  pointer-events:none;
+}
+
+.card h2{
+  position:relative;
+  color:#153e75;
+  z-index:1;
+}
+
+/* Todas las opciones */
+.choice label{
+  transition:transform .2s, box-shadow .2s;
+  box-shadow:0 4px 10px rgba(37,58,107,.08);
+}
+
+/* Opción Sí */
+.choice.yes label{
+  color:#17643a;
+  background:linear-gradient(135deg,#e5faed,#c9f4da);
+  border-color:#66cc8c;
+}
+
+/* Opción Necesita ajustes */
+.choice.adjust label{
+  color:#845400;
+  background:linear-gradient(135deg,#fff8d9,#ffedaa);
+  border-color:#efc654;
+}
+
+/* Opción No */
+.choice.no label{
+  color:#a62448;
+  background:linear-gradient(135deg,#ffe8ef,#ffcbd9);
+  border-color:#ef7898;
+}
+
+/* Efecto al pasar el cursor */
+.choice label:hover{
+  transform:translateY(-3px);
+  box-shadow:0 9px 18px rgba(44,59,112,.18);
+}
+
+/* Opción seleccionada */
+.choice input:checked + label{
+  transform:scale(1.025);
+  border-width:3px;
+  box-shadow:0 0 0 4px rgba(124,58,237,.18),
+             0 8px 18px rgba(44,59,112,.18);
+}
+
+/* Tarjeta de la recomendación */
+.card:last-of-type{
+  background:linear-gradient(135deg,#fffbea,#fff1c2);
+  border-left-color:#f59e0b;
+  border-color:#f6d675;
+}
 </style>
 </head>
 <body>

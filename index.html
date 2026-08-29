@@ -9,7 +9,26 @@
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#e8f0f8,#f7faff);color:var(--text)}
 .wrap{max-width:900px;margin:0 auto;padding:28px 18px 50px}
-.hero{background:linear-gradient(135deg,#0d3158,#174f86);color:#fff;border-radius:22px;padding:28px;box-shadow:0 12px 30px rgba(35,67,108,.16);margin-bottom:20px}
+.hero{
+  background:
+    linear-gradient(
+      90deg,
+      rgba(13,20,65,.98) 0%,
+      rgba(20,25,83,.90) 42%,
+      rgba(20,25,83,.35) 72%,
+      rgba(13,16,55,.15) 100%
+    ),
+    url("./alarma-microbit-fondo.png") center/cover no-repeat;
+  color:#fff;
+  border-radius:22px;
+  padding:38px 28px;
+  min-height:360px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  box-shadow:0 12px 30px rgba(35,67,108,.20);
+  margin-bottom:20px;
+}
 .hero h1{margin:0 0 10px;font-size:clamp(30px,5vw,44px);font-weight:900;letter-spacing:.2px}
 .hero p{margin:0;font-size:18px;line-height:1.5;opacity:.98;font-weight:600}
 .steps{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}

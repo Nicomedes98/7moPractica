@@ -23,10 +23,6 @@
       overflow: hidden;
     }
 
-    /* =========================
-       DIAPOSITIVAS
-    ========================= */
-
     .slide {
       position: absolute;
       inset: 0;
@@ -38,10 +34,6 @@
       display: block;
     }
 
-    /* =========================
-       IMÁGENES
-    ========================= */
-
     .image-slide img {
       width: 100vw;
       height: 100vh;
@@ -50,28 +42,19 @@
       display: block;
     }
 
-    /* =========================
-       FLECHAS
-    ========================= */
-
     .arrow {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
       z-index: 20;
-
       width: 74px;
       height: 74px;
-
       border: 2px solid rgba(255,255,255,.35);
       border-radius: 50%;
-
       background: rgba(0,0,0,.42);
       color: white;
-
       font-size: 46px;
       cursor: pointer;
-
       display: flex;
       align-items: center;
       justify-content: center;
@@ -85,33 +68,18 @@
       right: 24px;
     }
 
-    /* =========================
-       CONTADOR
-    ========================= */
-
     .counter {
       position: absolute;
-
       right: 26px;
       bottom: 22px;
-
       z-index: 20;
-
       color: white;
-
       background: rgba(0,0,0,.4);
-
       border-radius: 999px;
-
       padding: 8px 14px;
-
       font-weight: 700;
       font-size: 14px;
     }
-
-    /* =========================
-       PANTALLA FINAL
-    ========================= */
 
     .final-slide {
       background:
@@ -128,16 +96,13 @@
         );
 
       color: white;
-
       display: none;
     }
 
     .final-slide.active {
       display: flex;
-
       align-items: center;
       justify-content: center;
-
       padding: 35px 92px;
     }
 
@@ -147,121 +112,113 @@
 
     .eyebrow {
       display: inline-block;
-
       font-size: 22px;
       font-weight: 800;
-
       text-transform: uppercase;
       letter-spacing: 2px;
-
       color: #9dccff;
-
       margin-bottom: 14px;
     }
 
     .question {
-      font-size: clamp(
-        34px,
-        4vw,
-        58px
-      );
-
+      font-size: clamp(34px, 4vw, 58px);
       line-height: 1.08;
-
       font-weight: 800;
-
-      margin:
-        0
-        0
-        24px
-        0;
+      margin: 0 0 24px 0;
     }
 
     .ideas-label {
       font-size: 24px;
       font-weight: 700;
-
       margin-bottom: 10px;
-
       color: #d8ebff;
     }
 
-    /* =========================
-       CAMPO PARA ESCRIBIR
-    ========================= */
-
     .idea-input {
       width: 100%;
-
       border: 3px solid #8fc6ff;
-
       border-radius: 16px;
-
-      padding:
-        16px
-        20px;
-
+      padding: 16px 20px;
       font-family: inherit;
-
       font-size: 27px;
       font-weight: 600;
-
       color: #14263d;
-
       background: white;
-
       outline: none;
-
       margin-bottom: 16px;
     }
 
-    /* =========================
-       IDEAS CARGADAS
-    ========================= */
-
     .ideas-container {
       display: flex;
-
       flex-direction: column;
-
       gap: 10px;
-
-      max-height: 290px;
-
+      max-height: 275px;
       overflow-y: auto;
-
       padding-right: 5px;
     }
 
     .idea-card {
       background: white;
-
       color: #12345a;
-
-      border-left:
-        9px solid
-        #4da3ff;
-
+      border-left: 9px solid #4da3ff;
       border-radius: 14px;
-
-      padding:
-        13px
-        18px;
-
+      padding: 13px 18px;
       font-size: 26px;
-
       font-weight: 700;
-
       line-height: 1.2;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .idea-text {
+      flex: 1;
+    }
+
+    .delete-idea {
+      width: 38px;
+      height: 38px;
+      border: none;
+      border-radius: 50%;
+      background: #dc3545;
+      color: white;
+      font-size: 19px;
+      font-weight: bold;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .delete-idea:hover {
+      background: #b02a37;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 13px;
+    }
+
+    .clear-btn {
+      background: #b02a37;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 17px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .clear-btn:hover {
+      background: #8f202b;
     }
 
     .hint {
-      margin-top: 12px;
-
+      margin-top: 8px;
       color: #9dccff;
-
       font-size: 15px;
-
       opacity: .9;
     }
 
@@ -270,10 +227,7 @@
 
 <body>
 
-  <!-- =====================================
-       PANTALLA 1
-       PUERTA AUTOMÁTICA
-  ====================================== -->
+  <!-- PANTALLA 1 -->
 
   <section class="slide image-slide active">
 
@@ -296,10 +250,7 @@
   </section>
 
 
-  <!-- =====================================
-       PANTALLA 2
-       BARRERA DE TREN
-  ====================================== -->
+  <!-- PANTALLA 2 -->
 
   <section class="slide image-slide">
 
@@ -329,10 +280,7 @@
   </section>
 
 
-  <!-- =====================================
-       PANTALLA 3
-       BARRERA DE ESTACIONAMIENTO
-  ====================================== -->
+  <!-- PANTALLA 3 -->
 
   <section class="slide image-slide">
 
@@ -362,10 +310,7 @@
   </section>
 
 
-  <!-- =====================================
-       PANTALLA 4
-       VENTANA CON ALARMA
-  ====================================== -->
+  <!-- PANTALLA 4 -->
 
   <section class="slide image-slide">
 
@@ -395,10 +340,7 @@
   </section>
 
 
-  <!-- =====================================
-       PANTALLA 5
-       PENSEMOS
-  ====================================== -->
+  <!-- PANTALLA 5 -->
 
   <section class="slide final-slide">
 
@@ -409,27 +351,21 @@
       ‹
     </button>
 
-
     <div class="final-wrap">
 
       <div class="eyebrow">
         PENSEMOS
       </div>
 
-
       <h1 class="question">
-
         ¿Cómo hacen estos dispositivos
         para detectar lo que ocurre
         y decidir qué respuesta dar?
-
       </h1>
-
 
       <div class="ideas-label">
         Ideas del grupo
       </div>
-
 
       <input
         type="text"
@@ -438,19 +374,25 @@
         autocomplete="off"
       >
 
-
       <div
         id="ideasContainer"
         class="ideas-container"
       ></div>
 
+      <div class="actions">
+        <button
+          class="clear-btn"
+          onclick="borrarTodas()"
+        >
+          Borrar todas las ideas
+        </button>
+      </div>
 
       <div class="hint">
         ideas..
       </div>
 
     </div>
-
 
     <div class="counter">
       5 / 5
@@ -459,36 +401,19 @@
   </section>
 
 
-  <!-- =====================================
-       JAVASCRIPT
-  ====================================== -->
-
   <script>
 
     const slides =
-      [
-        ...document
-          .querySelectorAll(
-            ".slide"
-          )
-      ];
-
+      [...document.querySelectorAll(".slide")];
 
     let current = 0;
 
-
-    /* =========================
-       MOSTRAR DIAPOSITIVA
-    ========================= */
 
     function showSlide(index) {
 
       slides[current]
         .classList
-        .remove(
-          "active"
-        );
-
+        .remove("active");
 
       current =
         Math.max(
@@ -499,19 +424,11 @@
           )
         );
 
-
       slides[current]
         .classList
-        .add(
-          "active"
-        );
-
+        .add("active");
     }
 
-
-    /* =========================
-       SIGUIENTE
-    ========================= */
 
     function nextSlide() {
 
@@ -519,108 +436,54 @@
         current <
         slides.length - 1
       ) {
-
-        showSlide(
-          current + 1
-        );
-
+        showSlide(current + 1);
       }
-
     }
 
 
-    /* =========================
-       ANTERIOR
-    ========================= */
-
     function prevSlide() {
 
-      if (
-        current >
-        0
-      ) {
-
-        showSlide(
-          current - 1
-        );
-
+      if (current > 0) {
+        showSlide(current - 1);
       }
-
     }
 
 
     const ideaInput =
-      document.getElementById(
-        "ideaInput"
-      );
-
+      document.getElementById("ideaInput");
 
     const ideasContainer =
-      document.getElementById(
-        "ideasContainer"
-      );
+      document.getElementById("ideasContainer");
 
-
-    /* =========================
-       FLECHAS DEL TECLADO
-    ========================= */
 
     document.addEventListener(
       "keydown",
       function(event) {
 
-        /*
-        Si estamos escribiendo,
-        no cambiar de pantalla
-        */
-
         if (
-          document.activeElement
-          ===
+          document.activeElement ===
           ideaInput
         ) {
-
           return;
-
         }
 
-
         if (
-          event.key
-          ===
-          "ArrowRight"
-          ||
-          event.key
-          ===
-          "PageDown"
+          event.key === "ArrowRight" ||
+          event.key === "PageDown"
         ) {
-
           nextSlide();
-
         }
 
-
         if (
-          event.key
-          ===
-          "ArrowLeft"
-          ||
-          event.key
-          ===
-          "PageUp"
+          event.key === "ArrowLeft" ||
+          event.key === "PageUp"
         ) {
-
           prevSlide();
-
         }
 
       }
     );
 
-
-    /* =========================
-       RECUPERAR IDEAS GUARDADAS
-    ========================= */
 
     function cargarIdeas() {
 
@@ -629,77 +492,39 @@
           "ideas_inicio_microbit"
         );
 
-
-      if (
-        !guardado
-      ) {
-
+      if (!guardado) {
         return [];
-
       }
-
 
       try {
 
         const parsed =
-          JSON.parse(
-            guardado
-          );
+          JSON.parse(guardado);
 
-
-        if (
-          Array.isArray(
-            parsed
-          )
-        ) {
-
+        if (Array.isArray(parsed)) {
           return parsed;
-
         }
 
-
         if (
-          typeof parsed
-          ===
-          "string"
-          &&
-          parsed.trim()
-          !==
-          ""
+          typeof parsed === "string" &&
+          parsed.trim() !== ""
         ) {
-
-          return [
-            parsed.trim()
-          ];
-
+          return [parsed.trim()];
         }
 
       }
 
       catch(error) {
 
-        /*
-        Si antes estaba guardado
-        como texto común
-        */
-
         if (
-          guardado.trim()
-          !==
-          ""
+          guardado.trim() !== ""
         ) {
-
-          return [
-            guardado.trim()
-          ];
-
+          return [guardado.trim()];
         }
 
       }
 
-
       return [];
-
     }
 
 
@@ -707,154 +532,155 @@
       cargarIdeas();
 
 
-    /*
-    Guardamos todo en
-    el nuevo formato
-    */
+    function guardarIdeas() {
 
-    localStorage.setItem(
-      "ideas_inicio_microbit",
-      JSON.stringify(
-        ideasGuardadas
-      )
-    );
-
-
-    /* =========================
-       MOSTRAR IDEAS
-    ========================= */
-
-    function mostrarIdeas() {
-
-      ideasContainer
-        .innerHTML =
-        "";
-
-
-      ideasGuardadas
-        .forEach(
-          function(idea) {
-
-            const tarjeta =
-              document
-                .createElement(
-                  "div"
-                );
-
-
-            tarjeta
-              .className =
-              "idea-card";
-
-
-            tarjeta
-              .textContent =
-              idea;
-
-
-            ideasContainer
-              .appendChild(
-                tarjeta
-              );
-
-          }
-        );
-
-
-      /*
-      Mostrar siempre
-      la última respuesta
-      */
-
-      ideasContainer
-        .scrollTop =
-        ideasContainer
-          .scrollHeight;
+      localStorage.setItem(
+        "ideas_inicio_microbit",
+        JSON.stringify(
+          ideasGuardadas
+        )
+      );
 
     }
 
 
-    /* =========================
-       ENTER = AGREGAR IDEA
-    ========================= */
+    function mostrarIdeas() {
 
-    ideaInput
-      .addEventListener(
-        "keydown",
-        function(event) {
+      ideasContainer.innerHTML = "";
 
-          if (
-            event.key
-            ===
-            "Enter"
-          ) {
+      ideasGuardadas.forEach(
+        function(idea, index) {
 
-            event
-              .preventDefault();
+          const tarjeta =
+            document.createElement("div");
+
+          tarjeta.className =
+            "idea-card";
 
 
-            const nuevaIdea =
-              ideaInput
-                .value
-                .trim();
+          const texto =
+            document.createElement("span");
+
+          texto.className =
+            "idea-text";
+
+          texto.textContent =
+            idea;
 
 
-            if (
-              nuevaIdea
-              !==
-              ""
-            ) {
+          const borrar =
+            document.createElement("button");
 
-              /*
-              Agregar idea
-              */
+          borrar.className =
+            "delete-idea";
 
-              ideasGuardadas
-                .push(
-                  nuevaIdea
-                );
+          borrar.textContent =
+            "✕";
+
+          borrar.title =
+            "Borrar esta idea";
 
 
-              /*
-              Guardar
-              */
+          borrar.onclick =
+            function() {
 
-              localStorage
-                .setItem(
-                  "ideas_inicio_microbit",
-                  JSON.stringify(
-                    ideasGuardadas
-                  )
-                );
+              ideasGuardadas.splice(
+                index,
+                1
+              );
 
-
-              /*
-              Limpiar campo
-              */
-
-              ideaInput
-                .value =
-                "";
-
-
-              /*
-              Mostrar tarjetas
-              */
+              guardarIdeas();
 
               mostrarIdeas();
 
-            }
+            };
 
-          }
+
+          tarjeta.appendChild(texto);
+
+          tarjeta.appendChild(borrar);
+
+          ideasContainer.appendChild(
+            tarjeta
+          );
 
         }
       );
 
 
-    /*
-    Mostrar las ideas
-    que ya estaban guardadas
-    */
+      ideasContainer.scrollTop =
+        ideasContainer.scrollHeight;
+
+    }
+
+
+    ideaInput.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (
+          event.key === "Enter"
+        ) {
+
+          event.preventDefault();
+
+          const nuevaIdea =
+            ideaInput.value.trim();
+
+
+          if (
+            nuevaIdea !== ""
+          ) {
+
+            ideasGuardadas.push(
+              nuevaIdea
+            );
+
+            guardarIdeas();
+
+            ideaInput.value = "";
+
+            mostrarIdeas();
+
+          }
+
+        }
+
+      }
+    );
+
+
+    function borrarTodas() {
+
+      if (
+        ideasGuardadas.length === 0
+      ) {
+        return;
+      }
+
+
+      const confirmar =
+        confirm(
+          "¿Querés borrar todas las ideas?"
+        );
+
+
+      if (confirmar) {
+
+        ideasGuardadas = [];
+
+        localStorage.removeItem(
+          "ideas_inicio_microbit"
+        );
+
+        mostrarIdeas();
+
+      }
+
+    }
+
+
+    guardarIdeas();
 
     mostrarIdeas();
 

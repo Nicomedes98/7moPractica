@@ -50,6 +50,58 @@ textarea{min-height:105px;resize:vertical}
 .submit{border:0;border-radius:14px;background:linear-gradient(135deg,#0d3158,#174f86);color:#fff;font-size:17px;font-weight:800;padding:15px 22px;cursor:pointer;box-shadow:0 8px 20px rgba(45,103,177,.22)}
 .success{display:none;margin-top:16px;background:#edf9f3;border:1px solid #bfe6d1;color:#176844;border-radius:16px;padding:18px;font-weight:700;text-align:center}
 .footer{text-align:center;color:#38536d;font-size:14px;font-weight:700;margin-top:22px}
+/* Franja de evaluación entre pares */
+.evaluation-banner{
+  display:grid;
+  grid-template-columns:1.4fr .8fr;
+  align-items:center;
+  gap:22px;
+  margin:25px 0;
+  padding:22px 25px;
+  color:#fff;
+  background:linear-gradient(135deg,#123f73,#7c3aed);
+  border-radius:24px;
+  box-shadow:0 12px 28px rgba(39,52,112,.22);
+  overflow:hidden;
+}
+
+.evaluation-banner span{
+  display:inline-block;
+  padding:6px 12px;
+  margin-bottom:8px;
+  background:#facc15;
+  color:#422006;
+  border-radius:20px;
+  font-weight:800;
+}
+
+.evaluation-banner h2{
+  margin:4px 0 8px;
+  font-size:25px;
+}
+
+.evaluation-banner p{
+  margin:0;
+  line-height:1.5;
+}
+
+.evaluation-banner img{
+  width:100%;
+  height:155px;
+  object-fit:cover;
+  border-radius:18px;
+  border:3px solid rgba(255,255,255,.45);
+}
+
+@media(max-width:700px){
+  .evaluation-banner{
+    grid-template-columns:1fr;
+  }
+
+  .evaluation-banner img{
+    height:130px;
+  }
+}
 </style>
 </head>
 <body>
@@ -63,6 +115,16 @@ textarea{min-height:105px;resize:vertical}
   </section>
 
   <form id="evalForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdd4SvFk6-bBtBd_GUWMhTYBZ4N_qAstvl1d4s8nRPfVZY_mQ/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+   <div class="evaluation-banner">
+  <div>
+    <span>🔎 Evaluación entre pares</span>
+    <h2>Probamos, observamos y ayudamos a mejorar</h2>
+    <p>Revisen el programa del otro equipo y seleccionen una opción en cada criterio.</p>
+  </div>
+
+  <img src="./alarma-microbit-fondo.png"
+       alt="Proyecto de alarma con micro:bit">
+</div>
     <section class="card">
       <h2>👥 ¿Quiénes evalúan?</h2>
       <p class="hint">Escriban nombre y apellido de los integrantes del equipo que realiza la devolución.</p>

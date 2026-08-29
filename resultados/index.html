@@ -1,1 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultados | Alarma con micro:bit</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <style>
+    :root{
+      --navy:#071a3d; --blue:#123f73; --violet:#7c3aed;
+      --cyan:#22d3ee; --green:#39c878; --amber:#f2bd3d;
+      --coral:#ef6685; --paper:#fff; --text:#153e75;
+      --muted:#526987; --border:#dbe5f2;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:Arial,Helvetica,sans-serif; color:var(--text);
+      background:
+        radial-gradient(circle at 8% 12%,rgba(124,58,237,.12),transparent 25%),
+        radial-gradient(circle at 92% 35%,rgba(34,211,238,.12),transparent 24%),
+        linear-gradient(180deg,#eef4fb,#f8f5ff);
+    }
+    .wrap{max-width:1200px;margin:auto;padding:28px 18px 55px}
+    .hero{
+      min-height:390px; display:flex; align-items:center; padding:46px;
+      border-radius:28px; color:#fff; overflow:hidden;
+      background:
+        linear-gradient(90deg,rgba(4,18,52,.99) 0%,rgba(10,28,70,.92) 38%,rgba(24,20,82,.35) 67%,rgba(15,13,55,.08) 100%),
+        url("./puesta-en-comun-resultados.png") center/cover no-repeat;
+      box-shadow:0 18px 45px rgba(21,37,91,.27);
+    }
+    .hero-content{max-width:530px}
+    .eyebrow{
+      display:inline-block; padding:8px 14px; margin-bottom:13px;
+      border-radius:999px; color:#422b00; background:#facc15; font-weight:900;
+    }
+    h1{font-size:clamp(34px,5vw,55px);line-height:1.05;margin:0 0 15px}
+    .hero p{font-size:18px;line-height:1.55;margin:0;font-weight:600}
+    .summary{
+      display:flex;justify-content:space-between;align-items:center;gap:15px;
+      margin:24px 0;padding:17px 21px;background:rgba(255,255,255,.88);
+      border:1px solid var(--border);border-radius:18px;box-shadow:0 8px 20px rgba(30,55,96,.08);
+    }
+    .summary strong{font-size:18px}
+    #status{color:var(--muted);font-weight:700}
+    .section-title{margin:32px 0 7px;font-size:30px}
+    .section-intro{margin:0 0 19px;color:var(--muted);font-size:17px;font-weight:600}
+    .charts{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .chart-card{
+      position:relative;overflow:hidden;background:linear-gradient(145deg,#fff,#f7f4ff);
+      border:1px solid #ddd6fe;border-top:7px solid var(--violet);border-radius:23px;
+      padding:22px;box-shadow:0 12px 28px rgba(41,50,104,.12);
+      transition:transform .25s ease,box-shadow .25s ease;
+    }
+    .chart-card:hover{transform:translateY(-5px);box-shadow:0 18px 38px rgba(41,50,104,.19)}
+    .chart-card:nth-child(1){border-top-color:#22b8cf}
+    .chart-card:nth-child(2){border-top-color:#7c3aed}
+    .chart-card:nth-child(3){border-top-color:#f59e0b}
+    .chart-card::after{
+      content:"";position:absolute;width:95px;height:95px;right:-42px;top:-42px;
+      border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--violet));opacity:.13;
+    }
+    .chart-number{
+      display:inline-grid;place-items:center;width:35px;height:35px;border-radius:12px;
+      color:#fff;background:linear-gradient(135deg,var(--blue),var(--violet));font-weight:900;
+    }
+    .chart-card h3{min-height:72px;margin:12px 0 16px;font-size:19px;line-height:1.35}
+    .canvas-box{
+      height:275px;padding:10px;border-radius:19px;
+      background:radial-gradient(circle at center,rgba(124,58,237,.08),transparent 58%);
+    }
+    .suggestions{
+      display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:19px;
+    }
+    .suggestion{
+      position:relative;margin:0;padding:20px 20px 20px 55px;color:#604400;
+      background:linear-gradient(135deg,#fffbea,#fff0b7);border:1px solid #f2d266;
+      border-radius:18px;box-shadow:0 8px 18px rgba(102,77,17,.09);line-height:1.5;font-weight:650;
+    }
+    .suggestion::before{
+      content:"💡";position:absolute;left:17px;top:18px;font-size:24px;
+    }
+    .empty,.error{
+      grid-column:1/-1;padding:22px;text-align:center;border-radius:17px;font-weight:700;
+    }
+    .empty{background:#eef6ff;border:1px dashed #8db7e8;color:#315d8d}
+    .error{background:#fff0f3;border:1px solid #f3a2b5;color:#9b2946}
+    footer{text-align:center;color:var(--muted);margin-top:34px;font-weight:700}
+    @media(max-width:900px){.charts{grid-template-columns:1fr}.chart-card h3{min-height:auto}.suggestions{grid-template-columns:1fr}}
+    @media(max-width:680px){
+      .hero{min-height:450px;padding:28px 23px;align-items:flex-end;background:
+        linear-gradient(0deg,rgba(5,18,53,.99),rgba(12,26,70,.72) 58%,rgba(20,18,74,.16)),
+        url("./puesta-en-comun-resultados.png") 67% center/cover no-repeat}
+      .summary{align-items:flex-start;flex-direction:column}.wrap{padding:12px 12px 42px}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="hero">
+      <div class="hero-content">
+        <span class="eyebrow">📊 Puesta en común</span>
+        <h1>Resultados de la evaluación entre pares</h1>
+        <p>Observamos las respuestas del grupo, compartimos las sugerencias y pensamos qué podemos mejorar en el proyecto.</p>
+      </div>
+    </header>
+
+    <div class="summary">
+      <strong><span id="total">0</span> evaluaciones registradas</strong>
+      <span id="status">Cargando respuestas…</span>
+    </div>
+
+    <h2 class="section-title">¿Qué muestran las respuestas?</h2>
+    <p class="section-intro">Los nombres de los equipos no se muestran. Los gráficos reúnen las valoraciones recibidas.</p>
+    <section class="charts">
+      <article class="chart-card"><span class="chart-number">1</span><h3>¿El programa detecta el movimiento?</h3><div class="canvas-box"><canvas id="chart1"></canvas></div></article>
+      <article class="chart-card"><span class="chart-number">2</span><h3>¿La micro:bit produce una respuesta cuando detecta el movimiento?</h3><div class="canvas-box"><canvas id="chart2"></canvas></div></article>
+      <article class="chart-card"><span class="chart-number">3</span><h3>¿Se entiende cómo funciona la solución del equipo?</h3><div class="canvas-box"><canvas id="chart3"></canvas></div></article>
+    </section>
+
+    <h2 class="section-title">💡 Sugerencias para seguir mejorando</h2>
+    <p class="section-intro">Recuperamos las recomendaciones escritas durante la evaluación entre pares.</p>
+    <section id="suggestions" class="suggestions"><p class="empty">Cargando sugerencias…</p></section>
+    <footer>Proyecto Alarma con micro:bit · Evaluación entre pares</footer>
+  </main>
+
+  <script>
+    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRKjK7XGcoojJ9kSVWbvg_2GgMUlw71a6K6vnQSABx2FUOpwvTVv49-ZDsga8ZvMz76L-9C56z-WHaO/pub?output=csv";
+    const colors = ["#39c878", "#f2bd3d", "#ef6685"];
+    const labels = ["Sí", "Necesita ajustes", "No"];
+    const charts = [];
+
+    const centerTextPlugin = {
+      id:"centerText",
+      afterDraw(chart){
+        const {ctx,chartArea}=chart;
+        if(!chartArea) return;
+        const total=chart.data.datasets[0].data.reduce((sum,value)=>sum+value,0);
+        const x=(chartArea.left+chartArea.right)/2;
+        const y=(chartArea.top+chartArea.bottom)/2-13;
+        ctx.save();
+        ctx.textAlign="center";
+        ctx.fillStyle="#153e75";
+        ctx.font="900 31px Arial";
+        ctx.fillText(total,x,y);
+        ctx.fillStyle="#60738d";
+        ctx.font="700 12px Arial";
+        ctx.fillText(total===1?"RESPUESTA":"RESPUESTAS",x,y+22);
+        ctx.restore();
+      }
+    };
+
+    function countAnswers(rows, column){
+      const totals = {"Sí":0,"Necesita ajustes":0,"No":0};
+      rows.forEach(row => {
+        const value = (row[column] || "").trim();
+        if(value === "Si") totals["Sí"]++;
+        else if(Object.prototype.hasOwnProperty.call(totals,value)) totals[value]++;
+      });
+      return labels.map(label => totals[label]);
+    }
+
+    function drawChart(id, values){
+      const canvas=document.getElementById(id);
+      const ctx=canvas.getContext("2d");
+      const green=ctx.createLinearGradient(0,0,0,260);green.addColorStop(0,"#63e6a0");green.addColorStop(1,"#20a864");
+      const amber=ctx.createLinearGradient(0,0,0,260);amber.addColorStop(0,"#ffe27a");amber.addColorStop(1,"#e7a814");
+      const coral=ctx.createLinearGradient(0,0,0,260);coral.addColorStop(0,"#ff9ab1");coral.addColorStop(1,"#dc4165");
+      const chart = new Chart(canvas,{
+        type:"doughnut",
+        data:{labels,datasets:[{data:values,backgroundColor:[green,amber,coral],borderColor:"#fff",borderWidth:6,hoverOffset:14,borderRadius:7,spacing:2}]},
+        plugins:[centerTextPlugin],
+        options:{
+          responsive:true,maintainAspectRatio:false,cutout:"62%",
+          animation:{duration:1300,easing:"easeOutQuart"},
+          plugins:{
+            legend:{position:"bottom",labels:{usePointStyle:true,pointStyle:"circle",padding:18,font:{size:13,weight:"bold"}}},
+            tooltip:{backgroundColor:"#071a3d",padding:13,titleFont:{size:14},bodyFont:{size:14,weight:"bold"},callbacks:{label(context){
+              const total=context.dataset.data.reduce((a,b)=>a+b,0);
+              const percent=total?Math.round(context.raw*100/total):0;
+              return ` ${context.label}: ${context.raw} (${percent}%)`;
+            }}}
+          }
+        }
+      });
+      charts.push(chart);
+    }
+
+    function showSuggestions(rows){
+      const container = document.getElementById("suggestions");
+      const items = rows.map(row => (row[6] || "").trim()).filter(Boolean);
+      if(!items.length){container.innerHTML='<p class="empty">Todavía no hay sugerencias registradas.</p>';return;}
+      container.innerHTML = items.map(item => {
+        const p=document.createElement("p");p.className="suggestion";p.textContent=item;return p.outerHTML;
+      }).join("");
+    }
+
+    async function loadResults(){
+      try{
+        const response=await fetch(CSV_URL + "&actualizacion=" + Date.now(),{cache:"no-store"});
+        if(!response.ok) throw new Error("No se pudo leer la hoja");
+        const csv=await response.text();
+        const parsed=Papa.parse(csv,{skipEmptyLines:true});
+        const rows=parsed.data.slice(1).filter(row => row.some(cell => String(cell).trim() !== ""));
+        document.getElementById("total").textContent=rows.length;
+        document.getElementById("status").textContent="Actualizado al abrir la página";
+        drawChart("chart1",countAnswers(rows,3));
+        drawChart("chart2",countAnswers(rows,4));
+        drawChart("chart3",countAnswers(rows,5));
+        showSuggestions(rows);
+      }catch(error){
+        document.getElementById("status").textContent="No se pudieron cargar los datos";
+        document.getElementById("suggestions").innerHTML='<p class="error">Revisá que la hoja continúe publicada como CSV.</p>';
+      }
+    }
+    loadResults();
+  </script>
+</body>
+</html>
 

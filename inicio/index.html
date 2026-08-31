@@ -227,13 +227,15 @@
 
 <body>
 
-  <!-- PANTALLA 1 -->
+<body>
+
+  <!-- PANTALLA 1 - PUERTA -->
 
   <section class="slide image-slide active">
 
     <img
-      src="puerta_automatica.png"
-      alt="Puerta automática"
+      src="i1P.png"
+      alt="Puerta con micro:bit acoplada"
     >
 
     <button
@@ -244,19 +246,19 @@
     </button>
 
     <div class="counter">
-      1 / 5
+      1 / 4
     </div>
 
   </section>
 
 
-  <!-- PANTALLA 2 -->
+  <!-- PANTALLA 2 - VENTANA -->
 
   <section class="slide image-slide">
 
     <img
-      src="barrera_tren.png"
-      alt="Barrera de tren"
+      src="i2V.png"
+      alt="Ventana con micro:bit acoplada"
     >
 
     <button
@@ -274,19 +276,19 @@
     </button>
 
     <div class="counter">
-      2 / 5
+      2 / 4
     </div>
 
   </section>
 
 
-  <!-- PANTALLA 3 -->
+  <!-- PANTALLA 3 - BARRERA -->
 
   <section class="slide image-slide">
 
     <img
-      src="barrera_estacionamiento.png"
-      alt="Barrera de estacionamiento"
+      src="i3B.png"
+      alt="Barrera con micro:bit acoplada"
     >
 
     <button
@@ -304,45 +306,71 @@
     </button>
 
     <div class="counter">
-      3 / 5
+      3 / 4
     </div>
 
   </section>
 
 
-  <!-- PANTALLA 4 -->
-
-  <section class="slide image-slide">
-
-    <img
-      src="alarma_ventana.png"
-      alt="Ventana con alarma"
-    >
-
-    <button
-      class="arrow left"
-      onclick="prevSlide()"
-    >
-      ‹
-    </button>
-
-    <button
-      class="arrow right"
-      onclick="nextSlide()"
-    >
-      ›
-    </button>
-
-    <div class="counter">
-      4 / 5
-    </div>
-
-  </section>
-
-
-  <!-- PANTALLA 5 -->
+  <!-- PANTALLA 4 - PENSEMOS -->
 
   <section class="slide final-slide">
+
+    <button
+      class="arrow left"
+      onclick="prevSlide()"
+    >
+      ‹
+    </button>
+
+    <div class="final-wrap">
+
+      <div class="eyebrow">
+        PENSEMOS
+      </div>
+
+      <h1 class="question">
+        ¿Cómo hacen estos dispositivos
+        para detectar lo que ocurre
+        y decidir qué respuesta dar?
+      </h1>
+
+      <div class="ideas-label">
+        Ideas del grupo
+      </div>
+
+      <input
+        type="text"
+        id="ideaInput"
+        class="idea-input"
+        autocomplete="off"
+      >
+
+      <div
+        id="ideasContainer"
+        class="ideas-container"
+      ></div>
+
+      <div class="actions">
+        <button
+          class="clear-btn"
+          onclick="borrarTodas()"
+        >
+          Borrar todas las ideas
+        </button>
+      </div>
+
+      <div class="hint">
+        ideas..
+      </div>
+
+    </div>
+
+    <div class="counter">
+      4 / 4
+    </div>
+
+  </section>
 
     <button
       class="arrow left"
